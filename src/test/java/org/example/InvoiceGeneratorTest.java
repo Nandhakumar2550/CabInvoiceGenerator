@@ -3,28 +3,31 @@ package org.example;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-class InvoiceServiceTest {
+class InvoiceGeneratorTest {
 
     @Test
-    void givenUserId_shouldReturnInvoiceSummary() {
+    void givenNormalRide_shouldReturnCorrectFare() {
 
-        InvoiceService service = new InvoiceService();
+        InvoiceGenerator generator = new InvoiceGenerator();
 
-        Ride[] rides = {
-                new Ride(2.0, 5),   // 25
-                new Ride(3.0, 10)   // 40
-        };
+        Ride ride = new Ride(2.0, 5, RideCategory.NORMAL);
 
-        service.addRides("user1", rides);
-        // store rides for user
+        double fare = generator.calculateFare(ride);
 
-        InvoiceSummary summary = service.getInvoiceSummary("user1");
-        // fetch invoice
+        assertEquals(25, fare);
+        // 2*10 + 5*1
+    }
 
-        assertEquals(2, summary.getTotalRides());
-        // verify rides count
+    @Test
+    void givenPremiumRide_shouldReturnCorrectFare() {
 
-        assertEquals(65, summary.getTotalFare());
-        // verify total fare
+        InvoiceGenerator generator = new InvoiceGenerator();
+
+        Ride ride = new Ride(2.0, 5, RideCategory.PREMIUM);
+
+        double fare = generator.calculateFare(ride);
+
+        assertEquals(40, fare);
+        // 2*15 + 5*2 = 40
     }
 }

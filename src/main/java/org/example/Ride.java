@@ -3,14 +3,14 @@ package org.example;
 public class Ride {
 
     public double distance;
-    // variable → store distance of ride
-
     public int time;
-    // variable → store time of ride
+    public RideCategory category;
+    // new field → ride type
 
-    public Ride(double distance, int time) {
+    public Ride(double distance, int time, RideCategory category) {
         this.distance = distance;
         this.time = time;
-        // constructor → initialize ride object
+        this.category = category;
+        // constructor → initialize ride with category
     }
 }

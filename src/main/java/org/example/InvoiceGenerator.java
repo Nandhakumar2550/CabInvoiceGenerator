@@ -2,27 +2,37 @@ package org.example;
 
 public class InvoiceGenerator {
 
-    private static final int COST_PER_KM = 10;
-    private static final int COST_PER_MIN = 1;
-    private static final int MIN_FARE = 5;
-    // constants → fixed values
+    public double calculateFare(Ride ride) {
 
-    public double calculateFare(double distance, int time) {
+        double costPerKm;
+        double costPerMin;
+        double minFare;
+        // dynamic pricing
 
-        double fare = distance * COST_PER_KM + time * COST_PER_MIN;
-        // UC1 → base calculation
+        if (ride.category == RideCategory.PREMIUM) {
+            costPerKm = 15;
+            costPerMin = 2;
+            minFare = 20;
+        } else {
+            costPerKm = 10;
+            costPerMin = 1;
+            minFare = 5;
+        }
 
-        return Math.max(fare, MIN_FARE);
+        double fare = ride.distance * costPerKm + ride.time * costPerMin;
+
+        return Math.max(fare, minFare);
+        // apply minimum fare
     }
 
     public double calculateFare(Ride[] rides) {
 
         double totalFare = 0;
-        // accumulator → store total
+        // accumulator
 
         for (Ride ride : rides) {
-            totalFare += calculateFare(ride.distance, ride.time);
-            // reuse UC1 → important concept
+            totalFare += calculateFare(ride);
+            // reuse method
         }
 
         return totalFare;
@@ -31,9 +41,9 @@ public class InvoiceGenerator {
     public InvoiceSummary calculateFareSummary(Ride[] rides) {
 
         double totalFare = calculateFare(rides);
-        // reuse UC2 method
+        // reuse UC2 logic
 
         return new InvoiceSummary(rides.length, totalFare);
-        // return object → UC3 main concept
+        // return summary → UC3
     }
 }

@@ -6,7 +6,7 @@ import java.util.Map;
 public class InvoiceService {
 
     private Map<String, Ride[]> userRides = new HashMap<>();
-    // Map → store userId → rides (new concept UC4)
+    // Map → store userId → rides (UC4)
 
     public void addRides(String userId, Ride[] rides) {
 
@@ -23,6 +23,6 @@ public class InvoiceService {
         // create object
 
         return generator.calculateFareSummary(rides);
-        // return summary → reuse UC3
+        // return summary →  UC3
     }
 }
