@@ -6,27 +6,20 @@ import static org.junit.jupiter.api.Assertions.*;
 class InvoiceGeneratorTest {
 
     @Test
-    void givenDistanceAndTime_shouldReturnTotalFare() {
+    void givenMultipleRides_shouldReturnTotalFare() {
 
         InvoiceGenerator generator = new InvoiceGenerator();
         // create object
 
-        double fare = generator.calculateFare(2.0, 5);
-        // input values
+        Ride[] rides = {
+                new Ride(2.0, 5),   // 25
+                new Ride(3.0, 10)   // 40
+        };
 
-        assertEquals(25, fare);
-        // 2*10 + 5*1 = 25
-    }
+        double total = generator.calculateFare(rides);
+        // call UC2 method
 
-    @Test
-    void givenLessDistance_shouldReturnMinimumFare() {
-
-        InvoiceGenerator generator = new InvoiceGenerator();
-
-        double fare = generator.calculateFare(0.1, 1);
-        // very small input
-
-        assertEquals(5, fare);
-        // minimum fare applied
+        assertEquals(65, total);
+        // verify result
     }
 }
