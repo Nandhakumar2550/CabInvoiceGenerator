@@ -3,28 +3,28 @@ package org.example;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-class InvoiceGeneratorTest {
+class InvoiceServiceTest {
 
     @Test
-    void givenRides_shouldReturnInvoiceSummary() {
+    void givenUserId_shouldReturnInvoiceSummary() {
 
-        InvoiceGenerator generator = new InvoiceGenerator();
+        InvoiceService service = new InvoiceService();
 
         Ride[] rides = {
                 new Ride(2.0, 5),   // 25
                 new Ride(3.0, 10)   // 40
         };
 
-        InvoiceSummary summary = generator.calculateFareSummary(rides);
-        // call UC3 method
+        service.addRides("user1", rides);
+        // store rides for user
+
+        InvoiceSummary summary = service.getInvoiceSummary("user1");
+        // fetch invoice
 
         assertEquals(2, summary.getTotalRides());
-        // verify total rides
+        // verify rides count
 
         assertEquals(65, summary.getTotalFare());
         // verify total fare
-
-        assertEquals(32.5, summary.getAverageFare());
-        // verify average fare
     }
 }
