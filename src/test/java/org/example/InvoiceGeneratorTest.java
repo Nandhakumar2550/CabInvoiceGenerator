@@ -6,20 +6,25 @@ import static org.junit.jupiter.api.Assertions.*;
 class InvoiceGeneratorTest {
 
     @Test
-    void givenMultipleRides_shouldReturnTotalFare() {
+    void givenRides_shouldReturnInvoiceSummary() {
 
         InvoiceGenerator generator = new InvoiceGenerator();
-        // create object
 
         Ride[] rides = {
                 new Ride(2.0, 5),   // 25
                 new Ride(3.0, 10)   // 40
         };
 
-        double total = generator.calculateFare(rides);
-        // call UC2 method
+        InvoiceSummary summary = generator.calculateFareSummary(rides);
+        // call UC3 method
 
-        assertEquals(65, total);
-        // verify result
+        assertEquals(2, summary.getTotalRides());
+        // verify total rides
+
+        assertEquals(65, summary.getTotalFare());
+        // verify total fare
+
+        assertEquals(32.5, summary.getAverageFare());
+        // verify average fare
     }
 }
